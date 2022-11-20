@@ -15,10 +15,14 @@ export class UserProfileComponent implements OnInit {
     public authService: AuthService,
     private actRoute: ActivatedRoute
   ) {
-    let id = this.actRoute.snapshot.paramMap.get('id');
-    this.authService.getUserProfile(id).subscribe((res) => {
-      this.currentUser = res.msg;
-    });
+    // let id = this.actRoute.snapshot.paramMap.get('id');
+    // this.authService.getUserProfile(id).subscribe((res) => {
+    //   this.currentUser = res.msg;
+    // });
+    const result = this.authService.isLoggedIn
+    if (result) {
+      this.currentUser = this.authService.getUser()
+    }
   }
 
   ngOnInit() {}

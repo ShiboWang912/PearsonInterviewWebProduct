@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
+  public errorMessage: string = "";
 
   constructor(
     public fb: FormBuilder,
@@ -27,5 +28,8 @@ export class SigninComponent implements OnInit {
 
   loginUser() {
     this.authService.signIn(this.signinForm.value);
+    if(!this.authService.isLoggedIn){
+      this.errorMessage = "Invalid username or password!"
+    }
   }
 }

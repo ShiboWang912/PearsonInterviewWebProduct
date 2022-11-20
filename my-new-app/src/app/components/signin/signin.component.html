@@ -1,4 +1,8 @@
 <div class="auth-wrapper">
+  <div class="bg-danger mt-2 p-2 text-center text-white"
+        *ngIf='errorMessage != ""'>
+        {{ errorMessage }}
+      </div>
     <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="loginUser()">
       <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
       <div class="form-group">
@@ -21,6 +25,9 @@
         />
       </div>
       <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+      
+      <a class="nav-link" href="/sign-up"> If you don't have an account yet, Sign up Here! </a>
+     
     </form>
   </div>
   
