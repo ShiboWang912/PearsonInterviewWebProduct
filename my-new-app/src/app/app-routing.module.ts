@@ -14,9 +14,9 @@ import { AuthGuard } from './shared/auth.guard';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent, data: {title: 'home'}},
-  { path: 'incidents-list', component: IncidentsListComponent, data: {title: 'incident-list'} },
-  { path: 'add-incident', component: AddIncidentComponent, data: {title: 'add-incident'} },
-  { path: 'edit-incident/:id', component: IncidentDetailComponent, data: {title: 'edit-incident'} },
+  { path: 'incidents-list', component: IncidentsListComponent, data: {title: 'incident-list'}, },
+  { path: 'add-incident', component: AddIncidentComponent, data: {title: 'add-incident'},canActivate: [AuthGuard], },
+  { path: 'edit-incident/:id', component: IncidentDetailComponent, data: {title: 'edit-incident'},canActivate: [AuthGuard], },
   { path: 'log-in', component: SigninComponent },
   { path: 'sign-up', component: SignupComponent },
   {path: 'user-profile', component: UserProfileComponent,canActivate: [AuthGuard],},
