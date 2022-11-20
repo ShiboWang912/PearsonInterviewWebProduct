@@ -9,12 +9,16 @@ import { IncidentDetailComponent } from './components/incident-detail/incident-d
 import { IncidentsListComponent } from './components/incidents-list/incidents-list.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/authconfig.interceptor';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,9 @@ import { FooterComponent } from './partials/footer/footer.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
+    SigninComponent,
+    SignupComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +43,13 @@ import { FooterComponent } from './partials/footer/footer.component';
     MatToolbarModule,
     MatCardModule,
   ],
-  providers: [],
+  providers: [ 
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },
+],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

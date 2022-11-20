@@ -5,16 +5,28 @@ let express = require("express"),
   bodyParser = require("body-parser"),
   mongoDb = require("./database/db");
 
-mongoose.connect(process.env.URI || mongoDb.db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.URI || mongoDb.db, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-let mongoDB = mongoose.connection;
-mongoDB.on("error", console.error.bind(console, "Connection Error:"));
-mongoDB.once("open", () => {
-  console.log("Database Connected!...");
-});
+
+// let mongoDB = mongoose.connection;
+// mongoDB.on("error", console.error.bind(console, "Connection Error:"));
+// mongoDB.once("open", () => {
+//   console.log("Database Connected!...");
+// });
+
+mongoose
+  .connect("mongodb+srv://Shibo:18980598216@shibo.tno6qmm.mongodb.net/?retryWrites=true")
+  .then((x) => {
+    console.log(
+      `Connected to Mongo! Database name: "${x.connections[0].name}"`
+    );
+  })
+  .catch((err) => {
+    console.error("Error connecting to mongo", err.reason);
+  });
 
 const incidentRoute = require("./routes/incident.routes");
 
