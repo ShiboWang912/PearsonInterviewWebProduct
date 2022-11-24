@@ -127,20 +127,16 @@ incidentRoute.post('/signin', (req, res, next) => {
     })
     .then((user) => {
       if (!user) {
-        return res.status(401).json({
-          message: 'Authentication failed',
-        })
+        incidentRoute.post('/signin');       
       }
-      getUser = user
-      return bcrypt.compare(req.body.password, user.password)
+      else{ getUser = user
+        return bcrypt.compare(req.body.password, user.password)}
     })
     .then((response) => {
       if (!response) {
-        return res.status(401).json({
-          message: 'Authentication failed',
-        })
-      }
-      let jwtToken = jwt.sign(
+        incidentRoute.post('/signin');
+        
+      }else{let jwtToken = jwt.sign(
         {
           email: getUser.email,
           userId: getUser._id,
@@ -154,12 +150,7 @@ incidentRoute.post('/signin', (req, res, next) => {
         token: jwtToken,
         expiresIn: 3600,
         _id: getUser._id,
-      })
-    })
-    .catch((err) => {
-      return res.status(401).json({
-        message: 'Authentication failed',
-      })
+      })}      
     })
 })
 
