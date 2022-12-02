@@ -22,7 +22,7 @@ export class AddIncidentComponent implements OnInit {
       date: [''],
       description:[''],
       priority: [''],
-      status: [''],
+      status: ['New'],
       narrative: [''],
       duration:[''],
       
