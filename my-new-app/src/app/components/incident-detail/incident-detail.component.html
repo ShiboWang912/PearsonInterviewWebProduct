@@ -3,11 +3,11 @@
     <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
       <div class="form-group">
         <label>Incident Id</label>
-        <input class="form-control" type="text" formControlName="incidentId" required />
+        <input class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="incidentId" [readonly]="true" />
       </div>
       <div class="form-group">
         <label>Name</label>
-        <input class="form-control" type="text" formControlName="name" required />
+        <input  class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="name" [readonly]="true"/>
       </div>
 
       <div class="form-group">
@@ -44,7 +44,7 @@
       </div>
       <div class="form-group">
         <label>Duration</label>
-        <input class="form-control" type="text" formControlName="duration" required />
+        <input class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="duration" [readonly]="true" />
       </div>
 
       <div class="form-group">
