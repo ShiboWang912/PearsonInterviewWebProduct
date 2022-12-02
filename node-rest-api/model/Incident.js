@@ -18,6 +18,15 @@ let Incident = new Schema(
     status: {
       type: String,
     },
+    incidentId:{
+      type: String,
+    },
+    description:{
+      type: String,
+    },
+    duration:{
+      type:String,
+    }
   },
   {
     collection: "incidents",

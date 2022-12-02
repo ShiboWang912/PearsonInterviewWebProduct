@@ -12,7 +12,14 @@ let userSchema = new Schema({
     },
     password: {
         type: String
-    }
+    },
+    userId:{
+        type:String
+    },
+    userType:{
+        type: String
+    },
+
 }, {
     collection: 'users'
 })

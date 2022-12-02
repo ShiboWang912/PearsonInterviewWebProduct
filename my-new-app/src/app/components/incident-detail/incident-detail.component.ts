@@ -23,20 +23,27 @@ export class IncidentDetailComponent implements OnInit {
 
     this.crudService.GetIncident(this.getId).subscribe((res) => {
       this.updateForm.setValue({
+        incidentId:res['incidentId'],
         name: res['name'],
         date: res['date'],
-        narrative: res['narrative'],
+        description:res['description'],
         priority: res['priority'],
         status: res['status'],
+        narrative: res['narrative'],
+        duration:res['duration'],
+        
       });
     });
 
     this.updateForm = this.formBuilder.group({
+      incidentId:[''],
       name: [''],
       date: [''],
-      narrative: [''],
+      description:[''],     
       priority: [''],
-      status: [''],
+      status: [''],      
+      narrative: [''],
+      duration:[''],
     });
   }
 

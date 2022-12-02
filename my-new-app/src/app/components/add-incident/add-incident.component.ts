@@ -17,11 +17,15 @@ export class AddIncidentComponent implements OnInit {
     private crudService: CrudService
   ) {
     this.incidentForm = this.formBuilder.group({
+      incidentId: [''],
       name: [''],
       date: [''],
-      narrative: [''],
+      description:[''],
       priority: [''],
       status: [''],
+      narrative: [''],
+      duration:[''],
+      
     });
   }
 

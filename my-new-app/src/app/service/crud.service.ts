@@ -32,7 +32,9 @@ export class CrudService {
   GetIncidents() {
     return this.httpClient.get(`${this.REST_API}`);
   }
-
+  GetUsers() {
+    return this.httpClient.get(`${this.REST_API}`);
+  }
   // Get single object
   GetIncident(id: any): Observable<any> {
     let API_URL = `${this.REST_API}/read-incident/${id}`;
@@ -44,6 +46,16 @@ export class CrudService {
     );
   }
 
+  //Get single user
+  GetUser(id: any): Observable<any> {
+    let API_URL = `${this.REST_API}/read-user/${id}`;
+    return this.httpClient.get(API_URL, { headers: this.httpHeaders }).pipe(
+      map((res: any) => {
+        return res || {};
+      }),
+      catchError(this.handleError)
+    );
+  }
   // Update
   updateIncident(id: any, data: any): Observable<any> {
     let API_URL = `${this.REST_API}/update-incident/${id}`;
@@ -52,6 +64,14 @@ export class CrudService {
       .pipe(catchError(this.handleError));
   }
 
+    // Update
+    updateUser(id: any, data: any): Observable<any> {
+      let API_URL = `${this.REST_API}/update-user/${id}`;
+      return this.httpClient
+        .put(API_URL, data, { headers: this.httpHeaders })
+        .pipe(catchError(this.handleError));
+    }
+    
   // Delete
   deleteIncident(id: any): Observable<any> {
     let API_URL = `${this.REST_API}/delete-incident/${id}`;

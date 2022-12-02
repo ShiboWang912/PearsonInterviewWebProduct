@@ -98,7 +98,10 @@ incidentRoute.post('/register-user',
         const user = new userSchema({
           name: req.body.name,
           email: req.body.email,
+          userId: req.body.userId,
+          userType: req.body.userType,
           password: hash,
+         
         })
         user
           .save()
