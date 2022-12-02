@@ -47,13 +47,16 @@
       </div>
       <div class="form-group">
         <label>User Type</label>
-        <input
+        <!-- <input
           type="text"
           class="form-control"
           formControlName="userType"
           placeholder="Enter user type (user/administrator)"
           required
-        />
+        /> -->
+        <select formControlName="userType">
+          <option *ngFor="let userType of userTypes">{{userType}}</option>
+        </select>
       </div>
       <button type="submit" class="btn btn-block btn-primary">Sign up</button>
     </form>

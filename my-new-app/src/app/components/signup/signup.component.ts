@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
+  userTypes: any = ['User', 'Admin']
   signupForm: FormGroup;
 
   constructor(
