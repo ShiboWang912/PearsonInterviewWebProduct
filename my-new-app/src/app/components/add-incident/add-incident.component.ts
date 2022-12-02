@@ -29,7 +29,11 @@ export class AddIncidentComponent implements OnInit {
     });
   }
   idGenerator(){
-    var d = new Date().toJSON().slice(0,10).replace(/-/g,'') + "-" + Math.floor(100000 + Math.random() * 900000);
+    var date = new Date();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    var d = date.toJSON().slice(0,10).replace(/-/g,'') + "-" + hours + minutes + seconds;
     return d;
   }
 
