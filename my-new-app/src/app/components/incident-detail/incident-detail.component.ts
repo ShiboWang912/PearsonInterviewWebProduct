@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./incident-detail.component.css'],
 })
 export class IncidentDetailComponent implements OnInit {
-  statusOptions: any = ['New', 'In Progress', 'Closed']
+  statusOptions: any = ['New', 'In Progress', 'Closed'];
   getId: any;
   updateForm: FormGroup;
 
@@ -24,41 +24,50 @@ export class IncidentDetailComponent implements OnInit {
 
     this.crudService.GetIncident(this.getId).subscribe((res) => {
       this.updateForm.setValue({
-        incidentId:res['incidentId'],
+        incidentId: res['incidentId'],
         name: res['name'],
         date: res['date'],
-        description:res['description'],
+        description: res['description'],
         priority: res['priority'],
         status: res['status'],
         narrative: res['narrative'],
-        duration:res['duration'],
-        
+        duration: res['duration'],
+        resolution: res['resolution'] ||""
+
       });
     });
 
     this.updateForm = this.formBuilder.group({
-      incidentId:[''],
+      incidentId: [''],
       name: [''],
       date: [''],
-      description:[''],     
+      description: [''],
       priority: [''],
-      status: [''],      
+      status: [''],
       narrative: [''],
-      duration:[''],
+      duration: [''],
+      resolution: ['']
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  onUpdate(): any {
-    this.crudService.updateIncident(this.getId, this.updateForm.value).subscribe(
-      () => {
-        console.log('Data updated successfully!');
-        this.ngZone.run(() => this.router.navigateByUrl('/incidents-list'));
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+  onUpdate(): any {console.log('here')
+    if (this.updateForm.controls['status'].value == "Closed" && this.updateForm.controls['resolution'].value == "") {
+      window.alert('Please enter the resolution to close the ticket!');
+
+    }
+    else {
+      this.crudService.updateIncident(this.getId, this.updateForm.value).subscribe(
+        () => {
+          console.log('Data updated successfully!');
+          this.ngZone.run(() => this.router.navigateByUrl('/incidents-list'));
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+
   }
 }
