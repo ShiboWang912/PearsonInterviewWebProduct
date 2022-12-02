@@ -17,7 +17,7 @@ export class AddIncidentComponent implements OnInit {
     private crudService: CrudService
   ) {
     this.incidentForm = this.formBuilder.group({
-      incidentId: [''],
+      incidentId: this.idGenerator(),
       name: [''],
       date: [''],
       description:[''],
@@ -27,6 +27,10 @@ export class AddIncidentComponent implements OnInit {
       duration:[''],
       
     });
+  }
+  idGenerator(){
+    var d = new Date().toJSON().slice(0,10).replace(/-/g,'') + "-" + Math.floor(100000 + Math.random() * 900000);
+    return d;
   }
 
   ngOnInit() {}
@@ -42,4 +46,5 @@ export class AddIncidentComponent implements OnInit {
       }
     );
   }
+  
 }
