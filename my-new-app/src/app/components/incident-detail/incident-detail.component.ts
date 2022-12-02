@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./incident-detail.component.css'],
 })
 export class IncidentDetailComponent implements OnInit {
-  statusOptions: any = ['New', 'In Progress', 'Closed'];
+  statusOptions: any = ['In Progress', 'Closed'];
   getId: any;
   updateForm: FormGroup;
 

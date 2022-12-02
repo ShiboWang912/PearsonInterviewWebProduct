@@ -41,7 +41,7 @@
         <td>{{ incident.narrative }}</td>
         <td>{{ incident.duration }}</td>
         <td class="text-center">
-          <button class="btn btn-sm btn-primary" routerLink="/edit-incident/{{ incident._id }}">
+          <button *ngIf="incident.status !== 'Closed'" class="btn btn-sm btn-primary" routerLink="/edit-incident/{{ incident._id }}">
             Edit
           </button>
           <button class="btn btn-sm btn-danger" (click)="delete(incident._id, i)">
