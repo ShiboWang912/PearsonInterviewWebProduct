@@ -27,6 +27,9 @@ let LogOfIncident = new Schema(
     duration:{
       type:String,
     },
+    resolution:{
+      type:String,
+    },
     modificationTime:{
         type:String,
     }

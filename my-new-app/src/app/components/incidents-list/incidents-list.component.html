@@ -32,7 +32,7 @@
     </thead>
 
     <tbody>
-      <tr class="clickable-row" *ngFor="let incident of Incidents; let i = index" routerLink="/log-incident/{{ incident._id }}">
+      <tr class="clickable-row" *ngFor="let incident of Incidents; let i = index" routerLink="/log-incident/{{ incident.incidentId }}">
         <td>{{ incident.incidentId }}</td>
         <td>{{ incident.name }}</td>
         <td>{{ incident.date }}</td>

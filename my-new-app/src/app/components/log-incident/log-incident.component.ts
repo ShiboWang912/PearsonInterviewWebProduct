@@ -9,9 +9,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./log-incident.component.css'],
 })
 export class LogIncidentComponent implements OnInit {
-  // statusOptions: any = ['In Progress', 'Closed'];
   getId: any;
-  logForm: FormGroup;
+  IncidentLogs: any = [];
 
   constructor(
     public formBuilder: FormBuilder,
@@ -21,54 +20,23 @@ export class LogIncidentComponent implements OnInit {
     private crudService: CrudService
   ) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log(this.getId)
 
-    this.crudService.GetIncident(this.getId).subscribe((res) => {
-      this.logForm.setValue({
-        incidentId: res['incidentId'],
-        name: res['name'],
-        date: res['date'],
-        description: res['description'],
-        priority: res['priority'],
-        status: res['status'],
-        narrative: res['narrative'],
-        duration: res['duration'],
-        resolution: res['resolution'] ||"",
-        //modificationTime: res['modificationTime']
-      });
+    // this.crudService.GetIncidents().subscribe((res: any) => {
+    //   console.log(res)
+    //   this.allIncidents = res
+    //   this.Incidents = res.filter((obj: any) => {
+    //     return obj.status.toLowerCase() !== 'closed'
+    //   })
+    // })
+    this.crudService.GetIncidentLog(this.getId).subscribe((res) => {
+      
+      console.log(res)
+      this.IncidentLogs = res
     });
 
-    this.logForm = this.formBuilder.group({
-      incidentId: [''],
-      name: [''],
-      date: [''],
-      description: [''],
-      priority: [''],
-      status: [''],
-      narrative: [''],
-      duration: [''],
-      resolution: [''],
-      //modificationTime:['']
-    });
   }
 
   ngOnInit() { }
 
-  // onUpdate(): any {console.log('here')
-  //   if (this.updateForm.controls['status'].value == "Closed" && this.updateForm.controls['resolution'].value == "") {
-  //     window.alert('Please enter the resolution to close the ticket!');
-
-  //   }
-  //   else {
-  //     this.crudService.updateIncident(this.getId, this.updateForm.value).subscribe(
-  //       () => {
-  //         console.log('Data updated successfully!');
-  //         this.ngZone.run(() => this.router.navigateByUrl('/incidents-list'));
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //       }
-  //     );
-  //   }
-
-  // }
 }

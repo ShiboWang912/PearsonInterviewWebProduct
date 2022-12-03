@@ -1,24 +1,49 @@
 const express = require("express");
 const app = express();
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const authorize = require('../middlewares/auth')
-const { check, validationResult } = require('express-validator')
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const authorize = require('../middlewares/auth');
+const { check, validationResult } = require('express-validator');
 
 const incidentRoute = express.Router();
+
 let Incident = require("../model/Incident");
 let userSchema = require('../model/User');
-let logOfIncident = require('../model/Incident');
-//const LogOfIncident = require('../model/LogOfIncident');
+let LogOfIncident = require('../model/LogOfIncident');
+
 // Add Incident
 incidentRoute.route("/add-incident").post((req, res, next) => {
-  Incident.create(req.body, (error, data) => {
+// Prepare incidentLog Object with additional field
+  const incidentLogNew = {
+    name: req.body.name,
+    date: req.body.date,
+    narrative: req.body.narrative,
+    priority: req.body.priority,
+    status: req.body.status,
+    incidentId: req.body.incidentId,
+    description: req.body.description,
+    duration: req.body.duration,
+    resolution: req.body.resolution,
+    modificationTime: new Date().toISOString()
+  };
+  // First add to Incident Log
+  LogOfIncident.create(incidentLogNew, (error, data) => {
     if (error) {
       return next(error);
     } else {
-      res.json(data);
+      console.log("Incident Log added successfully!");
+      // Second add incident
+      Incident.create(req.body, (error, data) => {
+        if (error) {
+          return next(error);
+        } else {
+          res.json(data);
+          console.log("Incident added successfully!");
+        }
+      });
     }
   });
+
 });
 
 // Get all Incident
@@ -43,34 +68,58 @@ incidentRoute.route("/read-incident/:id").get((req, res) => {
   });
 });
 
-//Get log
-// incidentRoute.route("/read-incident/:id").get((req, res) => {
-//   LogOfIncident.findById(req.params.id, (error, data) => {
-//     if (error) {
-//       return next(error);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
+// GetIncident log by the incidentId property value of incident record
+incidentRoute.route("/read-incident-Log/:id").get((req, res) => {
+  console.log(req.params.id);
+  LogOfIncident.find({ incidentId: req.params.id }, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      console.log(data);
+      res.json(data);
+    }
+  });
+});
 
 // Update Incident
 incidentRoute.route("/update-incident/:id").put((req, res, next) => {
-  Incident.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: req.body,
-    },
-    (error, data) => {
-      if (error) {
-        return next(error);
-        console.log(error);
-      } else {
-        res.json(data);
-        console.log("Incident updated successfully!");
-      }
+  const incidentLogNew = {
+    name: req.body.name,
+    date: req.body.date,
+    narrative: req.body.narrative,
+    priority: req.body.priority,
+    status: req.body.status,
+    incidentId: req.body.incidentId,
+    description: req.body.description,
+    duration: req.body.duration,
+    resolution: req.body.resolution,
+    modificationTime: new Date().toISOString()
+  };
+  // First add to incidentLog
+  LogOfIncident.create(incidentLogNew, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      console.log("Incident Log added successfully!");
+      // Second update incident
+      Incident.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: req.body,
+        },
+        (error, data) => {
+          if (error) {
+            return next(error);
+            console.log(error);
+          } else {
+            res.json(data);
+            console.log("Incident updated successfully!");
+          }
+        }
+      );
     }
-  );
+  });
+
 });
 
 // Delete Incident
@@ -101,11 +150,11 @@ incidentRoute.post('/register-user',
       .isLength({ min: 5, max: 8 }),
   ],
   (req, res, next) => {
-    const errors = validationResult(req)
-    console.log(req.body)
+    const errors = validationResult(req);
+    console.log(req.body);
 
     if (!errors.isEmpty()) {
-      return res.status(422).jsonp(errors.array())
+      return res.status(422).jsonp(errors.array());
     } else {
       bcrypt.hash(req.body.password, 10).then((hash) => {
         const user = new userSchema({
@@ -114,86 +163,90 @@ incidentRoute.post('/register-user',
           userId: req.body.userId,
           userType: req.body.userType,
           password: hash,
-         
-        })
+
+        });
         user
           .save()
           .then((response) => {
             res.status(201).json({
               message: 'User successfully created!',
               result: response,
-            })
+            });
           })
           .catch((error) => {
             res.status(500).json({
               error: error,
-            })
-          })
-      })
+            });
+          });
+      });
     }
   },
-)
+);
 
 // Sign-in
 incidentRoute.post('/signin', (req, res, next) => {
-  let getUser
+  let getUser;
   userSchema
     .findOne({
       email: req.body.email,
     })
     .then((user) => {
       if (!user) {
-        incidentRoute.post('/signin');       
+        incidentRoute.post('/signin');
       }
-      else{ getUser = user
-        return bcrypt.compare(req.body.password, user.password)}
+      else {
+        getUser = user;
+        return bcrypt.compare(req.body.password, user.password);
+      }
     })
     .then((response) => {
       if (!response) {
         incidentRoute.post('/signin');
-        
-      }else{let jwtToken = jwt.sign(
-        {
-          email: getUser.email,
-          userId: getUser._id,
-        },
-        'longer-secret-is-better',
-        {
-          expiresIn: '1h',
-        },
-      )
-      res.status(200).json({
-        token: jwtToken,
-        expiresIn: 3600,
-        _id: getUser._id,
-      })}      
-    })
-})
+
+      } else {
+        let jwtToken = jwt.sign(
+          {
+            email: getUser.email,
+            userId: getUser._id,
+          },
+          'longer-secret-is-better',
+          {
+            expiresIn: '1h',
+          },
+        );
+        res.status(200).json({
+          token: jwtToken,
+          expiresIn: 3600,
+          _id: getUser._id,
+        });
+      }
+    });
+});
 
 // Get Users
 incidentRoute.route('/').get((req, res, next) => {
-  userSchema.find((error, response)=> {
+  userSchema.find((error, response) => {
     if (error) {
-      return next(error)
+      return next(error);
     } else {
-      return res.status(200).json(response)
+      return res.status(200).json(response);
     }
-  })
-})
+  });
+});
 
 
 // Get Single User
 incidentRoute.route('/user-profile/:id').get(authorize, (req, res, next) => {
   userSchema.findById(req.params.id, (error, data) => {
     if (error) {
-      return next(error)
+      return next(error);
     } else {
       res.status(200).json({
         msg: data,
-      })
+      });
     }
-  })
-})
+  });
+});
 
 // Update User
 incidentRoute.route('/update-user/:id').put((req, res, next) => {
@@ -204,27 +257,27 @@ incidentRoute.route('/update-user/:id').put((req, res, next) => {
     },
     (error, data) => {
       if (error) {
-        return next(error)
+        return next(error);
       } else {
-        res.json(data)
-        console.log('User successfully updated!')
+        res.json(data);
+        console.log('User successfully updated!');
       }
     },
-  )
-})
+  );
+});
 
 // Delete User
 incidentRoute.route('/delete-user/:id').delete((req, res, next) => {
   userSchema.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
-      return next(error)
+      return next(error);
     } else {
       res.status(200).json({
         msg: data,
-      })
+      });
     }
-  })
-})
+  });
+});
 
 //
 

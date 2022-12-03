@@ -56,6 +56,7 @@ app.listen(port, () => {
 
 // 404 Handler
 app.use((req, res, next) => {
+  console.log(req.path)
   next(createError(404));
 });
 

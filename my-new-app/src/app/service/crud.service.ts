@@ -20,7 +20,7 @@ export class CrudService {
 
   constructor(private httpClient: HttpClient) {}
 
-  // Add
+  // Add an Incident
   AddIncident(data: Incident): Observable<any> {
     let API_URL = `${this.REST_API}/add-incident`;
     return this.httpClient
@@ -28,14 +28,14 @@ export class CrudService {
       .pipe(catchError(this.handleError));
   }
 
-  // Get all objects
+  // Get all Incidents
   GetIncidents() {
     return this.httpClient.get(`${this.REST_API}`);
   }
   GetUsers() {
     return this.httpClient.get(`${this.REST_API}`);
   }
-  // Get single object
+  // Get single Incident
   GetIncident(id: any): Observable<any> {
     let API_URL = `${this.REST_API}/read-incident/${id}`;
     return this.httpClient.get(API_URL, { headers: this.httpHeaders }).pipe(
@@ -56,7 +56,20 @@ export class CrudService {
       catchError(this.handleError)
     );
   }
-  // Update
+
+// Get incident Log
+GetIncidentLog(id: any): Observable<any> {
+  let API_URL = `${this.REST_API}/read-incident-Log/${id}`;
+  console.log(API_URL)
+  return this.httpClient.get(API_URL, { headers: this.httpHeaders }).pipe(
+    map((res: any) => {
+      return res || {};
+    }),
+    catchError(this.handleError)
+  );
+}
+
+  // Update Incident
   updateIncident(id: any, data: any): Observable<any> {
     let API_URL = `${this.REST_API}/update-incident/${id}`;
     return this.httpClient
@@ -64,7 +77,7 @@ export class CrudService {
       .pipe(catchError(this.handleError));
   }
 
-    // Update
+    // Update User
     updateUser(id: any, data: any): Observable<any> {
       let API_URL = `${this.REST_API}/update-user/${id}`;
       return this.httpClient
@@ -72,7 +85,7 @@ export class CrudService {
         .pipe(catchError(this.handleError));
     }
     
-  // Delete
+  // Delete Incident
   deleteIncident(id: any): Observable<any> {
     let API_URL = `${this.REST_API}/delete-incident/${id}`;
     return this.httpClient

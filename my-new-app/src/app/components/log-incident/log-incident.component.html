@@ -1,66 +1,43 @@
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4">
-      <form [formGroup]="logForm" >
-        <div class="form-group">
-          <label>Incident Id</label>
-          <input class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="incidentId" [readonly]="true" />
-        </div>
-        <div class="form-group">
-          <label>Name</label>
-          <input  class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="name" [readonly]="true"/>
-        </div>
-  
-        <div class="form-group">
-          <label>Date</label>
-          <input class="form-control" type="text" formControlName="date" required />
-        </div>
-  
-        <div class="form-group">
-          <label>Description</label>
-          <input class="form-control" type="text" formControlName="description" required />
-        </div>
-  
-        <div class="form-group">
-          <label>Priority</label>
-          <input class="form-control" type="text" formControlName="priority" required />
-        </div>
-  
-        <div class="form-group">
-          <label>Status</label>
-          <!-- <input class="form-control" type="text" formControlName="status" required /> -->
-          <!-- <input
-            class="form-control"
-            type="text"
-            formControlName="status"
-            required
-          /> -->
-          
-          <!-- <select formControlName="status" >
-            <option *ngFor="let status of statusOptions" >{{status}}</option>
-          </select> -->
-          
-          
-        </div>
-  
-        
-        <div class="form-group">
-          <label>Narrative</label>
-          <input class="form-control" type="text" formControlName="narrative" required />
-        </div>
-        <div class="form-group">
-          <label>Duration</label>
-          <input class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="duration" [readonly]="true" />
-        </div>
-        <div class="form-group" *ngIf="logForm.controls['status'].value == 'Closed'">
-          <label>Resolution</label>
-          <input class="form-control" type="text" formControlName="resolution" required />
-        </div>
-        <div class="form-group">
-  
-  
-          <button class="btn btn-sm btn-danger" routerLink="/incidents-list">Cancel</button>
-  
-        </div>
-      </form>
-    </div>
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h1">Incidents Log</h1>
   </div>
+ 
+  
+  <br>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Incident Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Description</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Status</th>
+        <th scope="col">Narrative</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Resolution</th>
+        <th scope="col">Modification Time</th>      
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let IncidentLog of IncidentLogs; let i = index">
+        <td>{{ IncidentLog.incidentId }}</td>
+        <td>{{ IncidentLog.name }}</td>
+        <td>{{ IncidentLog.date }}</td>
+        <td>{{ IncidentLog.description}}</td>
+        <td>{{ IncidentLog.priority }}</td>
+        <td>{{ IncidentLog.status }}</td>
+        <td>{{ IncidentLog.narrative }}</td>
+        <td>{{ IncidentLog.duration }}</td>
+        <td>{{IncidentLog.resolution}}</td>
+        <td>{{IncidentLog.modificationTime}}</td>        
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <button class="btn btn-sm btn-danger" routerLink="/incidents-list">Back to Incident List</button>
+  </div>
+</div>
