@@ -44,15 +44,15 @@ incidentRoute.route("/read-incident/:id").get((req, res) => {
 });
 
 //Get log
-incidentRoute.route("/read-incident/:id").get((req, res) => {
-  LogOfIncident.findById(req.params.id, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.json(data);
-    }
-  });
-});
+// incidentRoute.route("/read-incident/:id").get((req, res) => {
+//   LogOfIncident.findById(req.params.id, (error, data) => {
+//     if (error) {
+//       return next(error);
+//     } else {
+//       res.json(data);
+//     }
+//   });
+// });
 
 // Update Incident
 incidentRoute.route("/update-incident/:id").put((req, res, next) => {

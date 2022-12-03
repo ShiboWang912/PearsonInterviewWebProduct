@@ -51,7 +51,7 @@ export class IncidentsListComponent implements OnInit {
 
   }
   logIncident(id: any) {
-    let route = '/log-incident';
+    let route = '/log-incident/{{ incident._id }}';
     this.router.navigate([route], { queryParams: { id } });
   }
 }

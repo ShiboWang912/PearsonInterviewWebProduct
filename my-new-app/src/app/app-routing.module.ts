@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignupComponent },
   {path: 'user-profile', component: UserProfileComponent,canActivate: [AuthGuard],},
   {path: 'user-edit/:id', component: UserEditComponent,canActivate: [AuthGuard],},
-  { path: 'log-incident', component: LogIncidentComponent, data: {title: 'log-incident'}, canActivate: [AuthGuard],},
+  { path: 'log-incident/:id', component: LogIncidentComponent, data: {title: 'log-incident'}, canActivate: [AuthGuard],},
 
 ];
 

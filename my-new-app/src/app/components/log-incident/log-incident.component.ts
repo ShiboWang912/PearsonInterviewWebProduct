@@ -33,7 +33,7 @@ export class LogIncidentComponent implements OnInit {
         narrative: res['narrative'],
         duration: res['duration'],
         resolution: res['resolution'] ||"",
-        modificationTime: res['modificationTime']
+        //modificationTime: res['modificationTime']
       });
     });
 
@@ -47,7 +47,7 @@ export class LogIncidentComponent implements OnInit {
       narrative: [''],
       duration: [''],
       resolution: [''],
-      modificationTime:['']
+      //modificationTime:['']
     });
   }
 
