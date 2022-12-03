@@ -7,7 +7,9 @@ const { check, validationResult } = require('express-validator')
 
 const incidentRoute = express.Router();
 let Incident = require("../model/Incident");
-let userSchema = require('../model/User')
+let userSchema = require('../model/User');
+let logOfIncident = require('../model/Incident');
+//const LogOfIncident = require('../model/LogOfIncident');
 // Add Incident
 incidentRoute.route("/add-incident").post((req, res, next) => {
   Incident.create(req.body, (error, data) => {
@@ -33,6 +35,17 @@ incidentRoute.route("/").get((req, res) => {
 // Get Incident
 incidentRoute.route("/read-incident/:id").get((req, res) => {
   Incident.findById(req.params.id, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+//Get log
+incidentRoute.route("/read-incident/:id").get((req, res) => {
+  LogOfIncident.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -212,5 +225,7 @@ incidentRoute.route('/delete-user/:id').delete((req, res, next) => {
     }
   })
 })
+
+//
 
 module.exports = incidentRoute;
