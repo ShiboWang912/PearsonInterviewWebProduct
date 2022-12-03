@@ -2,3 +2,10 @@
 
 html, body { height: 100%; background-image: linear-gradient(rgb(213, 232, 248),rgb(129, 184, 242))}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+clickable {
+    cursor: pointer;
+  }
+  .clickable-row:hover {
+    background-color: #E8EAF6;
+    cursor: pointer;
+  }

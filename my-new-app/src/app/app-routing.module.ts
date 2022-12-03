@@ -9,6 +9,8 @@ import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AuthGuard } from './shared/auth.guard';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { LogIncidentComponent } from './components/log-incident/log-incident.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,9 @@ const routes: Routes = [
   { path: 'log-in', component: SigninComponent },
   { path: 'sign-up', component: SignupComponent },
   {path: 'user-profile', component: UserProfileComponent,canActivate: [AuthGuard],},
+  {path: 'user-edit/:id', component: UserEditComponent,canActivate: [AuthGuard],},
+  {path: 'log-incident/:id', component: LogIncidentComponent, data: {title: 'log-incident'}, canActivate: [AuthGuard],},
+
 ];
 
 

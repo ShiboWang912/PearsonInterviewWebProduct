@@ -5,5 +5,9 @@ export class Incident {
     narrative!: String;
     priority!: String;
     status!: String;
+    incidentId!: String;
+    description!:String;
+    duration!:String;
+    resolution!:String;
   }
   

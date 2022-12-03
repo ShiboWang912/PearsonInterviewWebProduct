@@ -17,12 +17,24 @@ export class AddIncidentComponent implements OnInit {
     private crudService: CrudService
   ) {
     this.incidentForm = this.formBuilder.group({
+      incidentId: this.idGenerator(),
       name: [''],
       date: [''],
-      narrative: [''],
+      description:[''],
       priority: [''],
-      status: [''],
+      status: ['New'],
+      narrative: [''],
+      duration:[''],
+      resolution:[''],
     });
+  }
+  idGenerator(){
+    var date = new Date();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    var d = date.toJSON().slice(0,10).replace(/-/g,'') + "-" + hours + minutes + seconds;
+    return d;
   }
 
   ngOnInit() {}
@@ -38,4 +50,5 @@ export class AddIncidentComponent implements OnInit {
       }
     );
   }
+  
 }

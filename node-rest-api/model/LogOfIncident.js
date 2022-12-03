@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let Incident = new Schema(
+let LogOfIncident = new Schema(
   {
     name: {
       type: String,
@@ -27,13 +27,13 @@ let Incident = new Schema(
     duration:{
       type:String,
     },
-    resolution:{
-      type:String,
+    modificationTime:{
+        type:String,
     }
   },
   {
-    collection: "incidents",
+    collection: "logOfIncidents",
   }
 );
 
-module.exports = mongoose.model("Incident", Incident);
+module.exports = mongoose.model("LogOfIncident", LogOfIncident);
