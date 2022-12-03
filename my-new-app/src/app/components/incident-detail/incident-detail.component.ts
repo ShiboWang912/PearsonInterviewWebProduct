@@ -57,8 +57,8 @@ export class IncidentDetailComponent implements OnInit {
       window.alert('Please enter the resolution to close the ticket!');
 
     }
-    if(this.updateForm.controls['status'].valueChanges ){
-      window.alert(' status changed!');
+    else if(this.updateForm.controls['status'].valueChanges&& this.updateForm.controls['narrative'].value == "" ){
+      window.alert('Please enter the narrative to close the ticket!');
     }
     else {
       this.crudService.updateIncident(this.getId, this.updateForm.value).subscribe(
