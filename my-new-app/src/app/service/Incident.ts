@@ -8,5 +8,6 @@ export class Incident {
     incidentId!: String;
     description!:String;
     duration!:String;
+    resolution!:String;
   }
   

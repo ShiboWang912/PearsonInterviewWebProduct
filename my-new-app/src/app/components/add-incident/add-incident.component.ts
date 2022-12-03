@@ -25,7 +25,7 @@ export class AddIncidentComponent implements OnInit {
       status: ['New'],
       narrative: [''],
       duration:[''],
-      
+      resolution:[''],
     });
   }
   idGenerator(){

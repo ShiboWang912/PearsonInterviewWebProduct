@@ -26,6 +26,7 @@
         <th scope="col">Status</th>
         <th scope="col">Narrative</th>
         <th scope="col">Duration</th>
+        <th scope="col">Resolution</th>
         <th class="text-center" scope="col">Action</th>
       </tr>
     </thead>
@@ -40,11 +41,12 @@
         <td>{{ incident.status }}</td>
         <td>{{ incident.narrative }}</td>
         <td>{{ incident.duration }}</td>
+        <td>{{incident.resolution}}</td>
         <td class="text-center">
           <button *ngIf="incident.status !== 'Closed'" class="btn btn-sm btn-primary" routerLink="/edit-incident/{{ incident._id }}">
             Edit
           </button>
-          <button class="btn btn-sm btn-danger" (click)="delete(incident._id, i)">
+          <button class="btn btn-sm btn-danger" (click)="delete(incident._id, i)" routerLink="/incidents-list">
             Delete
           </button>
         </td>

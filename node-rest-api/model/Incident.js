@@ -26,6 +26,9 @@ let Incident = new Schema(
     },
     duration:{
       type:String,
+    },
+    resolution:{
+      type:String,
     }
   },
   {
