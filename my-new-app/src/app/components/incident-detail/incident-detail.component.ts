@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./incident-detail.component.css'],
 })
 export class IncidentDetailComponent implements OnInit {
-  statusOptions: any = ['In Progress', 'Closed'];
+  statusOptions: any = ['New','In Progress', 'Closed'];
   getId: any;
   updateForm: FormGroup;
 
@@ -51,14 +51,14 @@ export class IncidentDetailComponent implements OnInit {
   }
 
   ngOnInit() { }
-
+  
   onUpdate(): any {console.log('here')
     if (this.updateForm.controls['status'].value == "Closed" && this.updateForm.controls['resolution'].value == "") {
       window.alert('Please enter the resolution to close the ticket!');
 
     }
-    else if(this.updateForm.controls['status'].valueChanges && this.updateForm.controls['narrative'].value == ""){
-      window.alert('Please enter the narrative to change the status!');
+    if(this.updateForm.controls['status'].valueChanges ){
+      window.alert(' status changed!');
     }
     else {
       this.crudService.updateIncident(this.getId, this.updateForm.value).subscribe(
