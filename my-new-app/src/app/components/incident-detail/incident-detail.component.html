@@ -49,9 +49,9 @@
         <label>Narrative</label>
         <input class="form-control" type="text" formControlName="narrative" required />
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="updateForm.controls['status'].value == 'Closed'">
         <label>Duration</label>
-        <input class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="duration" [readonly]="true" />
+        <input class="form-control" type="text" formControlName="duration" />
       </div>
 
       <div class="form-group">
