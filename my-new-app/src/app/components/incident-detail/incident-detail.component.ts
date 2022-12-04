@@ -52,13 +52,14 @@ export class IncidentDetailComponent implements OnInit {
 
   ngOnInit() { }
   
-  onUpdate(): any {console.log('here')
+  onUpdate(): any {
+    console.log(this.updateForm)
     if (this.updateForm.controls['status'].value == "Closed" && this.updateForm.controls['resolution'].value == "" && this.updateForm.controls['duration'].value == "") {
       window.alert('Please enter the resolution and duration to close the ticket!');
 
     }
     else if(this.updateForm.controls['status'].valueChanges&& this.updateForm.controls['narrative'].value == "" ){
-      window.alert('Please enter the narrative to change the status!');
+      window.alert('Please enter the narrative to update the incident!');
     }
     else {
       this.crudService.updateIncident(this.getId, this.updateForm.value).subscribe(

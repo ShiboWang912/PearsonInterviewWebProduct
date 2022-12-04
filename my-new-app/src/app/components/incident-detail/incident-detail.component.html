@@ -35,7 +35,7 @@
         /> -->
         
         <select formControlName="status" >
-          <option *ngFor="let status of statusOptions" >{{status}}</option>
+          <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
         </select>
         
         

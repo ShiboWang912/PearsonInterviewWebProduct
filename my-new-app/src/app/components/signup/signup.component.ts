@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
-  userTypes: any = ['User', 'Admin']
+  userTypes: any = ['Resident', 'Staff']
   signupForm: FormGroup;
 
   constructor(
@@ -22,14 +22,21 @@ export class SignupComponent implements OnInit {
       name: [''],
       email: [''],
       password: [''],
-      userId:[''],
+      userId:this.idGenerator(),
       userType:[''],
     });
   }
 
+  idGenerator(){
+    var num = Math.floor(100000 + Math.random() * 900000)
+    
+    return num;
+  }
+
   ngOnInit() {}
 
-  registerUser() {
+
+  registerUser() {console.log(this.signupForm.value)
     this.authService.signUp(this.signupForm.value).subscribe((res) => {
       if (res.result) {
         this.signupForm.reset();

@@ -141,7 +141,7 @@ incidentRoute.post('/register-user',
     check('name')
       .not()
       .isEmpty()
-      .isLength({ min: 3 })
+      .isLength({ min: 2 })
       .withMessage('Name must be atleast 3 characters long'),
     check('email', 'Email is required').not().isEmpty(),
     check('password', 'Password should be between 5 to 8 characters long')
