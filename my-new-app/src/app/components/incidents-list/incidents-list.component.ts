@@ -12,6 +12,7 @@ export class IncidentsListComponent implements OnInit {
   allIncidents = [];
   Incidents: any = [];
   isChecked: boolean = false;
+  isAuthenticated: boolean = false;
 
   constructor(private crudService: CrudService, private authService: AuthService, private router: Router) { }
 
@@ -39,6 +40,10 @@ export class IncidentsListComponent implements OnInit {
       })
     }}
 
+  }
+  isLoggedIn() {
+    this.isAuthenticated = this.authService.isLoggedIn;
+    return this.isAuthenticated;
   }
   delete(id: any, i: any) {
     if (!this.authService.isLoggedIn) {
