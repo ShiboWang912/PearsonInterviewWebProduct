@@ -2,51 +2,50 @@
   <div class="col-md-4">
     <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
       <div class="form-group">
-        <label>Incident Id</label>
+        <label><b>Incident Id</b></label>
         <input class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="incidentId" [readonly]="true" />
       </div>
+      <br>
       <div class="form-group">
-        <label>Name</label>
+        <label><b>Name</b></label>
         <input  class="form-control" style="background-color: rgb(220, 219, 219);" type="text" formControlName="name" [readonly]="true"/>
       </div>
-
+      <br>
       <div class="form-group">
-        <label>Date</label>
+        <label><b>Date</b></label>
         <input class="form-control" type="text" formControlName="date" required />
       </div>
-
+      <br>
       <div class="form-group">
-        <label>Description</label>
+        <label><b>Description</b></label>
         <input class="form-control" type="text" formControlName="description" required />
       </div>
-
+      <br>
       <div class="form-group">
-        <label>Priority</label>
+        <label><b>Priority</b></label>
         <input class="form-control" type="text" formControlName="priority" required />
       </div>
-
+      <br>
       <div class="form-group">
-        <label>Status</label>
+        <label><b>Status</b></label>
         <!-- <input
           class="form-control"
           type="text"
           formControlName="status"
           required
         /> -->
-        
+        <br>
         <select formControlName="status" >
           <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
-        </select>
-        
-        
+        </select> 
       </div>
-
+      <br>
       <div class="form-group" *ngIf="updateForm.controls['status'].value == 'Closed'">
         <label>Resolution</label>
         <input class="form-control" type="text" formControlName="resolution" required />
       </div>
       <div class="form-group">
-        <label>Narrative</label>
+        <label><b>Narrative</b></label>
         <input class="form-control" type="text" formControlName="narrative" required />
       </div>
       <div class="form-group" *ngIf="updateForm.controls['status'].value == 'Closed'">
@@ -54,11 +53,12 @@
         <input class="form-control" type="text" formControlName="duration" />
       </div>
 
-      <div class="form-group">
+      <div class="form-group"  style="padding-top: 10px; ">
 
-        <button class="btn btn-sm btn-primary" type="submit">Update</button>
+        <button class="btn btn-med btn-primary" type="submit">Update </button>
+        &nbsp;&nbsp;&nbsp;
 
-        <button class="btn btn-sm btn-danger" routerLink="/incidents-list">Cancel</button>
+        <button class="btn btn-med btn-danger" routerLink="/incidents-list">Cancel</button>
 
       </div>
     </form>

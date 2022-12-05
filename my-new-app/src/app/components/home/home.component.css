@@ -18,13 +18,14 @@
 
 .team_title {
     font-size: 30px;
-    color: #3e535a;
+    color: #131313;
     margin-top: 15px;
 }
 .team_mem{
-    color:#3e535a;
+    color:#070707;
+    font-weight: bold;
     font-size: 20px;
-    padding-top: 500px;
+    padding-top: 20px;
     
 }
 .center_content {
