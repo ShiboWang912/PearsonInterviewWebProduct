@@ -12,6 +12,7 @@ import { AuthService } from './../../shared/auth.service';
 export class UserEditComponent implements OnInit {
   getId: any;
   updateForm: FormGroup;
+  userTypes: any = ['Resident', 'Staff']
   constructor(
     private authService: AuthService,
     public formBuilder: FormBuilder,
