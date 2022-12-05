@@ -25,6 +25,11 @@ export class IncidentsListComponent implements OnInit {
     })
   }
   checkValue(event: any) {
+    if (!this.authService.isLoggedIn) {
+      window.alert('Access not allowed!')
+      this.router.navigate(['log-in'])
+    }
+    else {
     console.log('here', event.target.checked)
     if (event.target.checked == true) {
       this.Incidents = this.allIncidents
@@ -32,7 +37,7 @@ export class IncidentsListComponent implements OnInit {
       this.Incidents = this.allIncidents.filter((obj: any) => {
         return obj.status.toLowerCase() !== 'closed'
       })
-    }
+    }}
 
   }
   delete(id: any, i: any) {
