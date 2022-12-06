@@ -13,10 +13,22 @@ export class IncidentsListComponent implements OnInit {
   Incidents: any = [];
   isChecked: boolean = false;
   isAuthenticated: boolean = false;
+  isAdmin:boolean = false;
 
-  constructor(private crudService: CrudService, private authService: AuthService, private router: Router) { }
+  constructor(private crudService: CrudService, private authService: AuthService, private router: Router) { 
+   
+  }
 
   ngOnInit(): void {
+    const user = this.authService.getUser();
+    console.log(user)
+    console.log(user!=null)
+    console.log(user.userType==="Staff")
+    if (user!= null && user.userType === "Staff")
+    {
+      this.isAdmin = true;
+    }
+    console.log(this.isAdmin)
     this.crudService.GetIncidents().subscribe((res: any) => {
       console.log(res)
       this.allIncidents = res
@@ -41,10 +53,13 @@ export class IncidentsListComponent implements OnInit {
     }}
 
   }
+
   isLoggedIn() {
     this.isAuthenticated = this.authService.isLoggedIn;
     return this.isAuthenticated;
   }
+
+
   delete(id: any, i: any) {
     if (!this.authService.isLoggedIn) {
       window.alert('Access not allowed!')
